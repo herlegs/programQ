@@ -17,7 +17,7 @@ public class PermutationImpl implements Permutation{
         char[] input;
         Map<String, Integer> result = new HashMap<>();
 
-        input = new char[]{'么', '么', '哒'};
+        input = new char[]{'y', '么', '哒'};
         result.clear();
         permutation(input, 0, input.length - 1, result);
         p("---unique permutation---\n");
@@ -26,12 +26,13 @@ public class PermutationImpl implements Permutation{
     }
 
     public static void permutation(char[] array, int start, int end, Map<String, Integer> result){
-        if(start > end || start < 0 || end >= array.length){
+        if(start == end){
+            pArray(array);
+            result.put(Arrays.toString(array), 0);
             return;
         }
         for(int i = start; i <= end; i++){
             swap(array, start, i);
-            result.put(Arrays.toString(array), 0);
             permutation(array, start + 1, end, result);
             swap(array, start, i);
         }
