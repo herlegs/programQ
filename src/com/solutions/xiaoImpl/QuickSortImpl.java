@@ -28,30 +28,12 @@ public class QuickSortImpl implements QuickSort{
 //        System.out.println(Arrays.toString(array));
     }
 
-    private static void insertion(int[] array, int start, int end){
-        if(start >= end || start < 0 || end >= array.length){
-            return;
-        }
-        for(int i = start + 1; i <= end; i++){
-            int cur = array[i];
-            for(int j = i - 1; j >= 0; j--){
-                if(array[j] <= cur){
-                    array[j] = array[j-1];
-                }
-                else{
-                    array[i] = array[j+1];
-                    break;
-                }
-            }
-        }
-    }
-
     public static void qsort(int[] array, int start, int end){
         if(start >= end || start < 0 || end >= array.length){
             return;
         }
         if(end - start < 10){
-            insertion(array,start,end);
+            insertionSort(array,start,end);
             return;
         }
         //int mid = (start+end)/2;
@@ -100,5 +82,28 @@ public class QuickSortImpl implements QuickSort{
         int temp = array[i];
         array[i] = array[j];
         array[j] = temp;
+    }
+
+    private static void insertionSort(int[] array, int start, int end){
+        if(start >= end || start < 0 || end >= array.length){
+            return;
+        }
+        for (int i = start + 1; i <= end; i++) {
+            int cur = array[i];
+            int j = i - 1;
+//            for(; j >= 0; j--){
+//                if(array[j] > cur){
+//                    array[j + 1] = array[j];
+//                }
+//                else{
+//                    break;
+//                }
+//            }
+            while(j >= 0 && array[j] > cur){
+                array[j+1] = array[j];
+                j--;
+            }
+            array[j+1] = cur;
+        }
     }
 }
