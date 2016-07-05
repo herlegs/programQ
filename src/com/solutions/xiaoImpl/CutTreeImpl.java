@@ -32,15 +32,26 @@ public class CutTreeImpl implements CutTree {
         while(!queue.isEmpty()){
             Tree node = queue.poll();
             if(node != null){
-                if(canCut(node) && result.contains(node)){
+                boolean canCut = canCut(node);
+                if(canCut && result.contains(node)){
                     result.remove(node);
-                    if(node.left != null){
+                }
+                if(node.left != null){
+                    queue.offer(node.left);
+                    if(canCut){
                         result.add(node.left);
-                        queue.offer(node.left);
                     }
-                    if(node.right != null){
+                    if(canCut(node.left)){
+                        node.left = null;
+                    }
+                }
+                if(node.right != null){
+                    queue.offer(node.right);
+                    if(canCut){
                         result.add(node.right);
-                        queue.offer(node.right);
+                    }
+                    if(canCut(node.right)){
+                        node.right = null;
                     }
                 }
             }
