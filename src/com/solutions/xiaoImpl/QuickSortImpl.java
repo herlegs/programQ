@@ -4,6 +4,8 @@ import com.questions.QuickSort;
 import com.util.Util;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by xiao on 21/6/16.
@@ -19,13 +21,17 @@ public class QuickSortImpl implements QuickSort{
 //        qsort(array, 0, array.length - 1);
 //        System.out.println(Arrays.toString(array));
 
-        array = new int[]{1,2,30,4,5};
-        qsort(array, 0, array.length - 1);
-        System.out.println(Arrays.toString(array));
+        array = new int[]{};
+        //qsort(array, 0, array.length - 1);
+        //System.out.println(Arrays.toString(array));
 
 //        array = new int[]{9,8,7,6,5};
 //        qsort(array, 0, array.length - 1);
 //        System.out.println(Arrays.toString(array));
+        int[] result = mergesort(array, 0, array.length - 1);
+        System.out.println(Arrays.toString(result));
+        int[] a = new int[]{1,2};
+        Map<String, Integer> map = new HashMap<>();
     }
 
     public static void qsort(int[] array, int start, int end){
@@ -38,7 +44,8 @@ public class QuickSortImpl implements QuickSort{
         }
         //int mid = (start+end)/2;
         int mid = (start+end)/2;
-        int midVal = array[mid];
+        //int midVal = array[mid];
+        int midVal = choosePivot(array[mid], array[start], array[end]);
         int i = start;
         int j = end;
         //why i <=j but not i < j (Rule 4)
@@ -74,8 +81,33 @@ public class QuickSortImpl implements QuickSort{
             }
         }
         
-        qsort(array, start, i-1);
+        qsort(array, start, j);
         qsort(array, i, end);
+    }
+
+    private static int choosePivot(int a, int b, int c){
+        if(a > b){
+            if(c > a){
+                return a;
+            }
+            else if(c > b){
+                return c;
+            }
+            else{
+                return b;
+            }
+        }
+        else{
+            if(c > b){
+                return b;
+            }
+            else if(c > a){
+                return c;
+            }
+            else{
+                return a;
+            }
+        }
     }
 
     private static void swap(int[] array, int i, int j){
@@ -105,5 +137,44 @@ public class QuickSortImpl implements QuickSort{
             }
             array[j+1] = cur;
         }
+    }
+
+    public static int[] mergesort(int[] array, int start, int end){
+        if(start > end){
+            return new int[0];
+        }
+        if(start == end){
+            return new int[]{array[start]};
+        }
+        int mid = start + (end - start)/2;
+        int[] left = mergesort(array, start, mid);
+        int[] right = mergesort(array, mid + 1, end);
+        return combine(left, right);
+    }
+
+    private static int[] combine(int[] a, int[] b){
+        int n = a.length;
+        int m = b.length;
+        int[] c = new int[n+m];
+        int i = 0, j = 0, k = 0;
+        while(i < n && j < m){
+            if(a[i] < b[j]){
+                c[k] = a[i];
+                i++;
+            }
+            else{
+                c[k] = b[j];
+                j++;
+            }
+            k++;
+        }
+        int[] remained = (i == n) ? b : a;
+        int index = (i == n) ? j : i;
+        while(k < n + m){
+            c[k] = remained[index];
+            index++;
+            k++;
+        }
+        return c;
     }
 }

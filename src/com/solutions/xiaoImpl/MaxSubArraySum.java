@@ -8,11 +8,38 @@ import java.util.Arrays;
 public class MaxSubArraySum {
     public static void main(String[] args){
         int result = max1D(new int[]{1,2,-4,4,6,-2,-1,-1,5});
+        //System.out.println(result);
+
+        result = max2D(new int[][]{
+                {1,-1,3},
+                {1,-4,3}
+        });
         System.out.println(result);
+        long a = 2323;
+        int s = 12;
+        System.out.println(a>s);
     }
 
     public static int max2D(int[][] matrix){
-        return 0;
+        int row = matrix.length;
+        if(row == 0){
+            return 0;
+        }
+        int col = matrix[0].length;
+        int max = matrix[0][0];
+        for(int i = 0; i < col; i++){
+            int[] array = new int[row];
+            for(int j = i; j < col; j++){
+                for(int k = 0; k < row; k++){
+                    array[k] += matrix[k][j];
+                }
+                int colMax = max1D(array);
+                if(colMax > max){
+                    max = colMax;
+                }
+            }
+        }
+        return max;
     }
 
 
@@ -42,7 +69,7 @@ public class MaxSubArraySum {
                 resultRecord[1] = maxEndRecord[1];
             }
         }
-        System.out.println(Arrays.toString(resultRecord));
+        //System.out.println(Arrays.toString(resultRecord));
         return result;
     }
 
