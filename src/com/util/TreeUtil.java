@@ -70,40 +70,61 @@ public class TreeUtil {
         if(root == null){
             return;
         }
-        int height = getTreeHeight(root);
-        int currentLevel = 1;
         Queue<Tree> queue = new LinkedList<>();
+        Queue<Integer> depth = new LinkedList<>();
         queue.offer(root);
+        depth.offer(getTreeRootLeftDepth(root));
         while(!queue.isEmpty()){
-            int levelCount = queue.size();
-            System.out.print(getWhiteSpace((height - levelCount)*2));
-            for(int i = 0; i < levelCount; i++){
+            int count = queue.size();
+            int prevDepth = 0;
+            for(int i = 0; i < count; i++){
                 Tree node = queue.poll();
+                int leftDepth = depth.poll();
+                printSpace(leftDepth - prevDepth);
+                if(leftDepth - prevDepth == 0){
+                    System.out.print(" ");
+                }
                 if(node != null){
-                    System.out.print(node.val + "\t");
-                    queue.offer(node.left);
-                    queue.offer(node.right);
+                    System.out.print(node.val);
                 }
                 else{
-                    System.out.print("#\t");
+                    System.out.print("#");
+                }
+                prevDepth = leftDepth;
+                if(node != null){
+                    queue.offer(node.left);
+                    queue.offer(node.right);
+                    depth.offer(leftDepth - 1);
+                    depth.offer(leftDepth + 1);
                 }
             }
-            System.out.print("\n");
+            System.out.println("\n");
+        }
+    }
+    
+    private static void printSpace(int depth){
+        for(int i = 0; i < depth; i++){
+            System.out.print("\t");
         }
     }
 
-    public static int getTreeHeight(Tree node){
-        if(node == null){
-            return 0;
-        }
-        return Math.max(getTreeHeight(node.left), getTreeHeight(node.right)) + 1;
+    private static int getTreeRootLeftDepth(Tree root){
+        if(root == null) return 0;
+        return Math.max(getTreeRootLeftDepth(root.left) + 1, getTreeRootLeftDepth(root.right) - 1);
     }
 
-    public static String getWhiteSpace(int count){
-        StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < count; i++){
-            sb.append(" ");
-        }
-        return sb.toString();
-    }
+//    public static int getTreeHeight(Tree node){
+//        if(node == null){
+//            return 0;
+//        }
+//        return Math.max(getTreeHeight(node.left), getTreeHeight(node.right)) + 1;
+//    }
+//
+//    public static String getWhiteSpace(int count){
+//        StringBuilder sb = new StringBuilder();
+//        for(int i = 0; i < count; i++){
+//            sb.append(" ");
+//        }
+//        return sb.toString();
+//    }
 }
