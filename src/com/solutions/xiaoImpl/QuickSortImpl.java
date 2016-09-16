@@ -80,7 +80,8 @@ public class QuickSortImpl implements QuickSort{
                 //System.out.println(i + "..." + j);
             }
         }
-        
+        //when i j meet at pivot value point then i - j = 2
+        //otherwise i - j = 1
         qsort(array, start, j);
         qsort(array, i, end);
     }
