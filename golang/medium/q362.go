@@ -1,5 +1,6 @@
 package medium
 
+
 /*
 Design a hit counter which counts the number of hits received in the past 5 minutes.
 
@@ -45,17 +46,16 @@ type Node struct{
 
 /** Initialize your data structure here. */
 func Constructor() HitCounter {
-	return HitCounter{nil}
+	return HitCounter{&Node{0,0,nil,nil}}
 }
 
 
 /** Record a hit.
         @param timestamp - The current timestamp (in seconds granularity). */
 func (this *HitCounter) Hit(timestamp int)  {
-	if this.tail == nil {
-		this.tail = &Node{
-			timestamp, 1, nil,nil,
-		}
+	if this.tail.Key == 0 {
+		this.tail.Key = timestamp
+		this.tail.Count = 1
 	}else if this.tail.Key == timestamp{
 		this.tail.Count++
 	}else{
@@ -63,6 +63,7 @@ func (this *HitCounter) Hit(timestamp int)  {
 			timestamp, 1, this.tail, nil,
 		}
 		this.tail.Next = next
+		this.tail = next
 	}
 }
 
@@ -75,7 +76,7 @@ func (this *HitCounter) GetHits(timestamp int) int {
 	}
 	start := this.tail
 	count := 0
-	for start != nil {
+	for start != nil && (timestamp - start.Key) < 300{
 		if start.Key <= timestamp{
 			count += start.Count
 		}
@@ -83,6 +84,15 @@ func (this *HitCounter) GetHits(timestamp int) int {
 	}
 	return count
 }
+
+
+/**
+ * Your HitCounter object will be instantiated and called as such:
+ * obj := Constructor();
+ * obj.Hit(timestamp);
+ * param_2 := obj.GetHits(timestamp);
+ */
+
 
 
 /**

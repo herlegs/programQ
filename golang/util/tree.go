@@ -1,7 +1,11 @@
 package util
 
+import (
+
+)
+
 type TreeNode struct {
-	Val int
-	Left *TreeNode
+	Val   int64
+	Left  *TreeNode
 	Right *TreeNode
 }
