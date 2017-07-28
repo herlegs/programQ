@@ -8,15 +8,15 @@ import (
 
 const (
 	//how many character space for a subtree
-	minTreeWidth = 4
+	minTreeWidth = 3
 	//how many space for a node value
-	minNodeWidth = 3
+	minNodeWidth = 1
 	vert         = "|"
 	horiz        = "-"
 	//connection of horizontal and vertical tree arm
 	armCorner = "."
 	//place holder, background for printed tree
-	S = " "
+	s = " "
 )
 
 func PrintTree(root *TreeNode) {
@@ -86,11 +86,11 @@ func printTree(root *TreeNode, stats map[*TreeNode]*treeWidthInfo) {
 			currLevelStr += levelStr
 			nextLevelArmStr += armStr
 		}
-		fmt.Println(currLevelStr)
-		fmt.Println(nextLevelArmStr)
 		if isLevelEmpty {
 			break
 		}
+		fmt.Println(currLevelStr)
+		fmt.Println(nextLevelArmStr)
 	}
 
 }
@@ -99,32 +99,32 @@ func printTree(root *TreeNode, stats map[*TreeNode]*treeWidthInfo) {
 func sprintTreeNode(node *TreeNode, stats map[*TreeNode]*treeWidthInfo) (string, string) {
 
 	if node == nil {
-		return strings.Repeat(S, minTreeWidth), strings.Repeat(S, minTreeWidth)
+		return strings.Repeat(s, minTreeWidth), strings.Repeat(s, minTreeWidth)
 	}
 	nodeInfo := stats[node]
 	if nodeInfo.IsPlaceHolder {
-		return strings.Repeat(S, nodeInfo.NodeWidth), strings.Repeat(S, nodeInfo.NodeWidth)
+		return strings.Repeat(s, nodeInfo.NodeWidth), strings.Repeat(s, nodeInfo.NodeWidth)
 	}
 	str := ""
 	armStr := ""
 	if node.Left == nil {
-		str += strings.Repeat(S, minTreeWidth)
-		armStr += strings.Repeat(S, minTreeWidth)
+		str += strings.Repeat(s, minTreeWidth)
+		armStr += strings.Repeat(s, minTreeWidth)
 	} else {
 		armLeftPad := stats[node.Left].LeftWidth + stats[node.Left].NodeWidth/2
-		str += strings.Repeat(S, armLeftPad) + armCorner + strings.Repeat(horiz, stats[node.Left].TotalWidth-armLeftPad-len(armCorner))
-		armStr += strings.Repeat(S, armLeftPad) + vert + strings.Repeat(S, stats[node.Left].TotalWidth-armLeftPad-len(vert))
+		str += strings.Repeat(s, armLeftPad) + armCorner + strings.Repeat(horiz, stats[node.Left].TotalWidth-armLeftPad-len(armCorner))
+		armStr += strings.Repeat(s, armLeftPad) + vert + strings.Repeat(s, stats[node.Left].TotalWidth-armLeftPad-len(vert))
 	}
 	nodeValStr := sprintNodeValue(node.Val)
 	str += nodeValStr
-	armStr += strings.Repeat(S, len(nodeValStr))
+	armStr += strings.Repeat(s, len(nodeValStr))
 	if node.Right == nil {
-		str += strings.Repeat(S, minTreeWidth)
-		armStr += strings.Repeat(S, minTreeWidth)
+		str += strings.Repeat(s, minTreeWidth)
+		armStr += strings.Repeat(s, minTreeWidth)
 	} else {
 		armRightPad := stats[node.Right].RightWidth + stats[node.Right].NodeWidth/2
-		str += strings.Repeat(horiz, stats[node.Right].TotalWidth-armRightPad-len(armCorner)) + armCorner + strings.Repeat(S, armRightPad)
-		armStr += strings.Repeat(S, stats[node.Right].TotalWidth-armRightPad-len(vert)) + vert + strings.Repeat(S, armRightPad)
+		str += strings.Repeat(horiz, stats[node.Right].TotalWidth-armRightPad-len(armCorner)) + armCorner + strings.Repeat(s, armRightPad)
+		armStr += strings.Repeat(s, stats[node.Right].TotalWidth-armRightPad-len(vert)) + vert + strings.Repeat(s, armRightPad)
 	}
 	return str, armStr
 }
@@ -137,5 +137,5 @@ func sprintNodeValue(v int64) string {
 	}
 	left := (minNodeWidth - slen) / 2
 	right := minNodeWidth - slen - left
-	return strings.Repeat(S, left) + str + strings.Repeat(S, right)
+	return strings.Repeat(s, left) + str + strings.Repeat(s, right)
 }

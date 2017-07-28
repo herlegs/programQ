@@ -15,6 +15,13 @@ func NewQueue() Queue {
 	}
 }
 
+//Single linked list node
+type SNode struct {
+	Val interface{}
+	Next *SNode
+}
+
+// Not thread safe
 type queueImpl struct {
 	head *SNode
 	tail *SNode
