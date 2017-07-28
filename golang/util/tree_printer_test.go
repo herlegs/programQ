@@ -21,6 +21,6 @@ func createSampleTree() *TreeNode {
 
 func createRandomTreeNode() *TreeNode {
 	return &TreeNode{
-		Val: GetRandomInt64(),
+		Val: GetRandomInt64(1, 10),
 	}
 }
