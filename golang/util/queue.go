@@ -3,6 +3,7 @@ package util
 type Queue interface {
 	Push(interface{})
 	Pop() interface{}
+	Peek() interface{}
 	Size() int
 	IsEmpty() bool
 }
@@ -41,7 +42,7 @@ func (q *queueImpl) Push(v interface{}) {
 	q.size++
 }
 
-func (q *queueImpl) Pop() interface{}{
+func (q *queueImpl) Pop() interface{} {
 	if q.size == 0 {
 		return nil
 	}
@@ -49,6 +50,13 @@ func (q *queueImpl) Pop() interface{}{
 	q.head = q.head.Next
 	q.size--
 	return item
+}
+
+func (q *queueImpl) Peek() interface{} {
+	if q.head != nil {
+		return q.head.Val
+	}
+	return nil
 }
 
 func (q *queueImpl) Size() int {

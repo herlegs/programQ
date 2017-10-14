@@ -1,21 +1,24 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+)
 
 func main() {
-	//ip := make([]int, 2)
-	//addr := add(ip)
-	//fmt.Println(addr == &ip)
+	workerNum := 10
+	slice := make([]int, workerNum)
+	wg := &sync.WaitGroup{}
 
-	x := test{}
-	y := test{}
-	fmt.Println(x == y)
+	for i := 0; i < workerNum; i++ {
+		j := i
+		wg.Add(1)
+		go func(){
+			defer wg.Done()
+			slice[j] = j
+		}()
+	}
+
+	fmt.Println(slice)
 }
 
-type test struct {
-	a int
-}
-
-func add(a []int) *[]int {
-	return &a
-}

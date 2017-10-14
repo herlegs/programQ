@@ -30,7 +30,6 @@ type treeWidthInfo struct {
 	RightWidth    int
 	NodeWidth     int
 	TotalWidth    int
-	PaddingLeft   int
 	IsPlaceHolder bool
 }
 
@@ -41,7 +40,7 @@ func calTreeWidth(root *TreeNode, stats map[*TreeNode]*treeWidthInfo) *treeWidth
 	if root == nil {
 		return widthInfo
 	}
-	widthInfo.NodeWidth = Max(int64(GetLenOfInt64(root.Val)), minNodeWidth)
+	widthInfo.NodeWidth = MaxInt(GetLenOfInt64(root.Val), minNodeWidth)
 
 	leftInfo := calTreeWidth(root.Left, stats)
 	rightInfo := calTreeWidth(root.Right, stats)
@@ -68,9 +67,11 @@ func printTree(root *TreeNode, stats map[*TreeNode]*treeWidthInfo) {
 		for i := 0; i < levelCount; i++ {
 			item := queue.Pop()
 			node := item.(*TreeNode)
-			levelStr, armStr := sprintTreeNode(node, stats)
+			nodeLevelStr, nodeArmStr := sprintTreeNode(node, stats)
 			if node == nil { //empty node
 				queue.Push(node)
+				currLevelStr += nodeLevelStr
+				nextLevelArmStr += nodeArmStr
 				continue
 			}
 			nodeInfo := stats[node]
@@ -80,12 +81,13 @@ func printTree(root *TreeNode, stats map[*TreeNode]*treeWidthInfo) {
 				queue.Push(node.Left)
 				queue.Push(node)
 				queue.Push(node.Right)
-			} else {
+			} else { // if placeholder (just pass down node's width to next level)
 				queue.Push(node)
 			}
-			currLevelStr += levelStr
-			nextLevelArmStr += armStr
+			currLevelStr += nodeLevelStr
+			nextLevelArmStr += nodeArmStr
 		}
+		//to save printing space, no need to process next level
 		if isLevelEmpty {
 			break
 		}
@@ -97,7 +99,6 @@ func printTree(root *TreeNode, stats map[*TreeNode]*treeWidthInfo) {
 
 //return current level string and next level vertical arm
 func sprintTreeNode(node *TreeNode, stats map[*TreeNode]*treeWidthInfo) (string, string) {
-
 	if node == nil {
 		return strings.Repeat(s, minTreeWidth), strings.Repeat(s, minTreeWidth)
 	}

@@ -15,8 +15,8 @@ func createSampleTree() *TreeNode {
 	root.Left = createRandomTreeNode()
 	root.Right = createRandomTreeNode()
 
-	root.Left.Left = createRandomTreeNode()
 	root.Left.Right = createRandomTreeNode()
+	//root.Left.Right = createRandomTreeNode()
 
 	root.Right.Left = createRandomTreeNode()
 

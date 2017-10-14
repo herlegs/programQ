@@ -35,3 +35,28 @@ func BinarySearchLessThan(array []int, start, end, target int) int {
 func BinarySearchGreaterThan(array []int, start, end, target int) int {
 	return BinarySearch(array, start, end, target, GREATER)
 }
+
+//first element bigger than target (so all element on left side is smaller or equal to target)
+func BSFirstBigger(array []int, start, end, target int) int {
+	for start <= end {
+		mid := start + (end-start)/2
+		if array[mid] <= target {
+			start = mid + 1
+		} else {
+			end = mid - 1
+		}
+	}
+	return start
+}
+
+func BSLastSmaller(array []int, start, end, target int) int {
+	for start <= end {
+		mid := start + (end-start)/2
+		if array[mid] >= target {
+			end = mid - 1
+		} else {
+			start = mid + 1
+		}
+	}
+	return end
+}

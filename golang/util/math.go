@@ -18,12 +18,20 @@ const (
 	defaultRandomStringLength = int(6)
 )
 
-func Min(a, b int64) int {
+func MinInt(a, b int) int {
 	return int(math.Min(float64(a), float64(b)))
 }
 
-func Max(a, b int64) int {
+func MaxInt(a, b int) int {
 	return int(math.Max(float64(a), float64(b)))
+}
+
+func MinInt64(a, b int64) int64 {
+	return int64(math.Min(float64(a), float64(b)))
+}
+
+func MaxInt64(a, b int64) int64 {
+	return int64(math.Max(float64(a), float64(b)))
 }
 
 //SprintObj Sprint any struct object

@@ -7,7 +7,7 @@ import (
 )
 
 func TestSerializer(t *testing.T) {
-	treeStr := ""
+	treeStr := "#"
 	tree := Deserialize(treeStr)
 	serializedStr := Serialize(tree)
 	require.Equal(t, treeStr, serializedStr)
