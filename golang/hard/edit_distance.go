@@ -66,6 +66,31 @@ func editDistanceRecursive(nRunes, mRunes []rune, nIdx, mIdx int, result [][]int
 	return minDistance
 }
 
+func EditDistanceIterative(n, m string) int {
+	ln, lm := len(n), len(m)
+	nRunes, mRunes := []rune(n), []rune(m)
+	result := make([][]int, ln+1)
+	for i := 0; i <= ln; i++ {
+		result[i] = make([]int, lm+1)
+	}
+	for i := 0; i < ln; i++ {
+		result[i][0] = i
+	}
+	for i := 0; i <= lm; i++ {
+		result[0][i] = i
+	}
+	for i := 1; i <= ln; i++ {
+		for j := 1; j <= lm; j++ {
+			if nRunes[i-1] == mRunes[j-1] {
+				result[i][j] = result[i-1][j-1]
+				continue
+			}
+			result[i][j] = 1 + min3(result[i-1][j-1], result[i-1][j], result[i][j-1])
+		}
+	}
+	return result[ln][lm]
+}
+
 func min3(a,b,c int) int {
 	return util.MinInt(util.MinInt(a,b), c)
 }

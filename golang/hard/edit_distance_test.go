@@ -16,7 +16,7 @@ func TestEditDistance(t *testing.T) {
 	}
 
 	for _, d := range data {
-		res := EditDistanceRecursive(d.n, d.m)
+		res := EditDistanceIterative(d.n, d.m)
 		t.Logf("[%v][%v][%v]\n", d.n, d.m, res)
 		require.Equal(t, d.dis, res)
 	}
@@ -27,13 +27,15 @@ func TestEditDistance(t *testing.T) {
 EditDistance("Where r u mad", "wher3 are you mom") using brute force:
 8656812799 ns
 
-using recursive and [][]int for dp
+using recursive dp
 8564 ns
 
+using iterative dp
+4803 ns
 
  */
 func BenchmarkEditDistance(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		EditDistanceRecursive("Where r u mad", "wher3 are you mom")
+		EditDistanceIterative("Where r u mad", "wher3 are you mom")
 	}
 }
