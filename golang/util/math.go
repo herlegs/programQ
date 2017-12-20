@@ -1,15 +1,16 @@
 package util
 
 import (
-	"math"
 	"bytes"
-	"os"
-	"github.com/myteksi/go/commons/util/ioclose"
-	"fmt"
-	"math/rand"
-	"time"
 	"encoding/json"
+	"fmt"
+	"math"
+	"math/rand"
+	"os"
 	"strconv"
+	"time"
+
+	"github.com/myteksi/go/commons/util/ioclose"
 )
 
 const (
@@ -20,6 +21,16 @@ const (
 
 func MinInt(a, b int) int {
 	return int(math.Min(float64(a), float64(b)))
+}
+
+func MinInts(a int, others ...int) int {
+	result := a
+	for _, other := range others {
+		if other < result {
+			result = other
+		}
+	}
+	return result
 }
 
 func MaxInt(a, b int) int {
