@@ -26,7 +26,8 @@ func EditDistanceBruteForce(n, m string) int {
 }
 
 func EditDistanceRecursive(n, m string) int {
-	ln, lm := len(n), len(m)
+	nRunes, mRunes := []rune(n), []rune(m)
+	ln, lm := len(nRunes), len(mRunes)
 	result := make([][]int, ln+1)
 	for i := 0; i <= ln; i++ {
 		result[i] = make([]int, lm+1)
@@ -34,7 +35,7 @@ func EditDistanceRecursive(n, m string) int {
 			result[i][j] = -1
 		}
 	}
-	return editDistanceRecursive([]rune(n), []rune(m), ln, lm, result)
+	return editDistanceRecursive(nRunes, mRunes, ln, lm, result)
 }
 
 /*
@@ -67,8 +68,8 @@ func editDistanceRecursive(nRunes, mRunes []rune, nIdx, mIdx int, result [][]int
 }
 
 func EditDistanceIterative(n, m string) int {
-	ln, lm := len(n), len(m)
 	nRunes, mRunes := []rune(n), []rune(m)
+	ln, lm := len(nRunes), len(mRunes)
 	result := make([][]int, ln+1)
 	for i := 0; i <= ln; i++ {
 		result[i] = make([]int, lm+1)
@@ -92,8 +93,8 @@ func EditDistanceIterative(n, m string) int {
 }
 
 func EditDistanceIterativeMemoryOptimize(n, m string) int {
-	ln, lm := len(n), len(m)
 	nRunes, mRunes := []rune(n), []rune(m)
+	ln, lm := len(nRunes), len(mRunes)
 	preRow, preCol := make([]int, lm+1), make([]int, ln+1)
 	for i := 0; i <= lm; i++ {
 		preRow[i] = i
