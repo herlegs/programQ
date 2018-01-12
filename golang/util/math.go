@@ -10,7 +10,6 @@ import (
 	"strconv"
 	"time"
 
-	"gitlab.myteksi.net/gophers/go/commons/util/ioclose"
 	"reflect"
 )
 
@@ -145,7 +144,7 @@ func LoadJSONFromFile(filePath string, obj interface{}) error {
 	if err != nil {
 		return err
 	}
-	defer ioclose.Safely(file)
+	defer file.Close()
 
 	jsonParser := json.NewDecoder(file)
 	if err = jsonParser.Decode(obj); err != nil {
