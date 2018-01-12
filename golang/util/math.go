@@ -10,7 +10,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/myteksi/go/commons/util/ioclose"
+	"gitlab.myteksi.net/gophers/go/commons/util/ioclose"
+	"reflect"
 )
 
 const (
@@ -161,4 +162,16 @@ func AbsInt64(i int64) int64 {
 func GetLenOfInt64(i int64) int {
 	str := strconv.FormatInt(i, 10)
 	return len(str)
+}
+
+func StringListEqual(a, b []string) bool {
+	return reflect.DeepEqual(StringListToMapInt(a), StringListToMapInt(b))
+}
+
+func StringListToMapInt(strs []string) map[string]int {
+	m := make(map[string]int)
+	for _, s := range strs {
+		m[s]++
+	}
+	return m
 }
