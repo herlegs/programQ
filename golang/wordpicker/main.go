@@ -37,6 +37,7 @@ func main() {
 	fmt.Print(infoMsg)
 	for {
 		input, _ := inputReader.ReadString('\n')
+		input = strings.Trim(input, " \r\n")
 		exit, hit := controlCenter(input)
 		if exit {
 			return
@@ -57,7 +58,7 @@ func main() {
 
 //return (exit, hit)
 func controlCenter(s string) (bool, bool) {
-	s = strings.ToLower(strings.Trim(s, " \n"))
+	s = strings.ToLower(s)
 	if s == "q" {
 		return true, false
 	}
@@ -72,7 +73,6 @@ func controlCenter(s string) (bool, bool) {
 }
 
 func parseParams(params string) (string, int, error) {
-	params = strings.Trim(params, " \n")
 	reg := regexp.MustCompile(regex)
 	if !reg.MatchString(params) {
 		return "", 0, fmt.Errorf(errorMsg)
