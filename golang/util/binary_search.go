@@ -10,7 +10,7 @@ const (
 // return target value's matched element's index within start ~ end (inclusive) index of array
 // if no match, depending BSType, return element's index with less or greater value than target
 func BinarySearch(array []int, start, end, target int, bsType BSType) int {
-	for start <= end {
+	/*for start <= end {
 		mid := start + (end-start)/2
 
 		if array[mid] > target {
@@ -25,7 +25,21 @@ func BinarySearch(array []int, start, end, target int, bsType BSType) int {
 		return end
 	} else {
 		return start
+	}*/
+	for start <= end {
+		mid := start + (end-start)/2
+		if array[mid] > target {
+			end = mid - 1
+		} else if array[mid] < target {
+			start = mid + 1
+		} else {
+			return mid
+		}
 	}
+	if bsType == LESS {
+		return end
+	}
+	return start
 }
 
 func BinarySearchLessThan(array []int, start, end, target int) int {
