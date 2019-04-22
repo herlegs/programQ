@@ -2,7 +2,7 @@ package hard
 
 import "fmt"
 
-func maxProfit(k int, prices []int) int {
+func maxProfit4(k int, prices []int) int {
 	n := len(prices)
 	if k > n {
 		profits := 0
@@ -40,9 +40,9 @@ func maxProfit(k int, prices []int) int {
 	return maxP
 }
 
-func maxInt(a, b int) int {
-	if a > b {
-		return a
-	}
-	return b
-}
+//func maxInt(a, b int) int {
+//	if a > b {
+//		return a
+//	}
+//	return b
+//}
