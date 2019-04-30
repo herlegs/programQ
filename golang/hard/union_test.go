@@ -1,13 +1,22 @@
 package hard
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/require"
 )
 
 func TestUnion(t *testing.T) {
-	result := calcEquation([][]string{{"a", "b"}, {"b", "c"}}, []float64{2, 3}, [][]string{{"a", "c"}, {"b", "a"}, {"a", "e"}, {"a", "a"}, {"x", "x"}})
+	result := calcEquation([][]string{{"a", "b"}, {"e", "f"}, {"b", "e"}}, []float64{3.4, 1.4, 2.3}, [][]string{{"a", "f"}})
 
-	require.EqualValues(t, []float64{6, 0.5, -1, 1, -1}, result)
+	require.EqualValues(t, []float64{10.948}, result)
+}
+
+func TestMap(t *testing.T) {
+	m := make(map[string]*Parent)
+	m["a"] = &Parent{"a", 1}
+	m["a"].key = "b"
+	m["a"].ratio = 2
+	fmt.Printf("%#v\n", m["a"])
 }
