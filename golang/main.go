@@ -2,23 +2,24 @@ package main
 
 import (
 	"fmt"
-	"sync"
+	"time"
 )
 
 func main() {
-	workerNum := 10
-	slice := make([]int, workerNum)
-	wg := &sync.WaitGroup{}
+	ch := make(chan int)
 
-	for i := 0; i < workerNum; i++ {
-		j := i
-		wg.Add(1)
-		go func(){
-			defer wg.Done()
-			slice[j] = j
-		}()
+	go func() {
+		for i := 0; i < 5; i++ {
+			ch <- i
+		}
+		time.Sleep(time.Millisecond * 500)
+		close(ch)
+	}()
+
+	for {
+		select {
+		case d := <-ch:
+			fmt.Printf("%v\n", d)
+		}
 	}
-
-	fmt.Println(slice)
 }
-
