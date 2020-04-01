@@ -8,7 +8,7 @@ type Queue interface {
 	IsEmpty() bool
 }
 
-func NewQueue() Queue {
+func NewQueue() *queueImpl {
 	return &queueImpl{
 		nil,
 		nil,
@@ -18,7 +18,7 @@ func NewQueue() Queue {
 
 //Single linked list node
 type SNode struct {
-	Val interface{}
+	Val  interface{}
 	Next *SNode
 }
 

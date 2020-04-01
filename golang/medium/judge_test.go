@@ -5,11 +5,15 @@ import (
 	"testing"
 )
 
-func TestOpenLock(t *testing.T) {
-	r := openLock([]string{"0201", "0101", "0102", "1212", "2002"}, "0202")
+func TestSolution(t *testing.T) {
+	matrix := [][]int{{0, 0, 0, 0, 1, 1, 1, 1, 0}, {0, 1, 1, 0, 0, 0, 0, 1, 0}, {0, 0, 1, 0, 0, 0, 0, 0, 0}, {1, 1, 0, 0, 1, 0, 0, 1, 1}, {0, 0, 1, 1, 1, 0, 1, 0, 1}, {0, 1, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 0, 1, 0, 0, 0}, {0, 1, 0, 1, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 1, 0}}
+	r := shortestPathBinaryMatrix(matrix)
 	fmt.Printf("res:%v\n", r)
 }
 
 func TestName(t *testing.T) {
-	fmt.Printf("%v\n", steps("0002", "1003"))
+	a := "dfdfd"
+	for _, b := range a {
+		fmt.Printf("%T %v\n", b, b)
+	}
 }
