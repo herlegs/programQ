@@ -17,3 +17,9 @@ func TestName(t *testing.T) {
 		fmt.Printf("%T %v\n", b, b)
 	}
 }
+
+func TestCanWinLose(t *testing.T) {
+	a := "++++-++++-++++-++++"
+	fmt.Printf("can win:%v:%v\n", a, canWin(a))
+	fmt.Printf("can lose:%v:%v\n", a, canLose(a))
+}
