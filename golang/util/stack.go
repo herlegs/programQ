@@ -1,12 +1,13 @@
 package util
 
-import(
+import (
 	"container/list"
 )
 
 type Stack interface {
 	Push(interface{})
 	Pop() interface{}
+	Peek() interface{}
 	Size() int
 	IsEmpty() bool
 }
@@ -25,12 +26,20 @@ func (s *stackImpl) Push(v interface{}) {
 	s.l.PushBack(v)
 }
 
-func (s *stackImpl) Pop() interface{}{
+func (s *stackImpl) Pop() interface{} {
 	back := s.l.Back()
 	if back == nil {
 		return nil
 	}
 	s.l.Remove(back)
+	return back.Value
+}
+
+func (s *stackImpl) Peek() interface{} {
+	back := s.l.Back()
+	if back == nil {
+		return nil
+	}
 	return back.Value
 }
 
